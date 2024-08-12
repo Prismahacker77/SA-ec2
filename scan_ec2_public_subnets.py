@@ -9,8 +9,7 @@ def get_public_subnets(ec2, vpc_id):
     for rt in route_tables:
         print(f"Checking route table: {rt['RouteTableId']} for VPC: {vpc_id}")
         for route in rt['Routes']:
-            print(f"Route: {route}")
-            # Check if the route destination is 0.0.0.0/0 and the target is an Internet Gateway
+            # Filter out routes with GatewayId 'local' which is the default route within the VPC
             if route.get('DestinationCidrBlock') == '0.0.0.0/0' and route.get('GatewayId', '').startswith('igw-'):
                 for assoc in rt['Associations']:
                     if assoc.get('SubnetId'):
