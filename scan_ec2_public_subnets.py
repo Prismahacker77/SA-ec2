@@ -27,19 +27,19 @@ def scan_ec2_instances():
 
         for reservation in instances:
             for instance in reservation['Instances']:
+                instance_id = instance['InstanceId']
                 vpc_id = instance.get('VpcId')
                 subnet_id = instance.get('SubnetId')
+                public_ip = instance.get('PublicIpAddress')
                 
                 if vpc_id and subnet_id:
                     public_subnets = get_public_subnets(ec2, vpc_id)
-                    if subnet_id in public_subnets:
-                        instance_id = instance['InstanceId']
-                        instance_type = instance['InstanceType']
+                    if subnet_id in public_subnets and public_ip:
                         print(f"Region: {region}")
                         print(f"VPC ID: {vpc_id}")
                         print(f"Subnet ID: {subnet_id} (Public Subnet)")
                         print(f"Instance ID: {instance_id}")
-                        print(f"Instance Type: {instance_type}")
+                        print(f"Public IP: {public_ip}")
                         print("-" * 60)
 
 if __name__ == "__main__":
