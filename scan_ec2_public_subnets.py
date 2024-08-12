@@ -8,7 +8,8 @@ def get_public_subnets(ec2, vpc_id):
 
     for rt in route_tables:
         for route in rt['Routes']:
-            if route.get('GatewayId', '').startswith('igw-'):  # Check if route has an Internet Gateway
+            # Check if the route destination is 0.0.0.0/0 and the target is an Internet Gateway
+            if route.get('DestinationCidrBlock') == '0.0.0.0/0' and route.get('GatewayId', '').startswith('igw-'):
                 for assoc in rt['Associations']:
                     if assoc.get('SubnetId'):
                         public_subnets.add(assoc['SubnetId'])
