@@ -38,21 +38,14 @@ def scan_ec2_instances():
                 
                 if vpc_id and subnet_id:
                     public_subnets = get_public_subnets(ec2, vpc_id)
-                    if subnet_id in public_subnets:
-                        if public_ip:
-                            print(f"Instance {instance_id} is internet accessible.")
-                            print(f"Region: {region}")
-                            print(f"VPC ID: {vpc_id}")
-                            print(f"Subnet ID: {subnet_id} (Public Subnet)")
-                            print(f"Instance ID: {instance_id}")
-                            print(f"Public IP: {public_ip}")
-                            print("-" * 60)
-                        else:
-                            print(f"Instance {instance_id} is in a public subnet but does not have a public IP.")
-                    else:
-                        print(f"Instance {instance_id} is not in a public subnet.")
-                else:
-                    print(f"Instance {instance_id} is missing VPC or Subnet information.")
+                    if subnet_id in public_subnets and public_ip:
+                        print(f"Instance {instance_id} is internet accessible.")
+                        print(f"Region: {region}")
+                        print(f"VPC ID: {vpc_id}")
+                        print(f"Subnet ID: {subnet_id} (Public Subnet)")
+                        print(f"Instance ID: {instance_id}")
+                        print(f"Public IP: {public_ip}")
+                        print("-" * 60)
 
 if __name__ == "__main__":
     scan_ec2_instances()
