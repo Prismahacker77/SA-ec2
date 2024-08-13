@@ -11,4 +11,4 @@ COPY . /app
 RUN pip install --no-cache-dir -r requirements.txt
 
 # Run the script when the container launches
-CMD ["python", "scan_ec2_public_subnets.py"]
+CMD ["python", "askmeabout-ec2.py"]
