@@ -1,2 +1,2 @@
-# ec2-public
-ec2 instances on public subnets
+# SA-ec2
+Detect and list EC2 configurations
